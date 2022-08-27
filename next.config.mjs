@@ -14,6 +14,6 @@ function defineNextConfig(config) {
 
 export default defineNextConfig({
   reactStrictMode: true,
-  basePath: "/nextjs-pages",
-  assetPrefix: "/nextjs-pages",
+  basePath: "/portfolio",
+  assetPrefix: "/portfolio",
 });
