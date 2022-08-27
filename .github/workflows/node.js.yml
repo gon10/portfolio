@@ -21,28 +21,25 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: 'Create env file'
-      run: |
-        touch .env
-        echo # Prisma >> .env
-        echo DATABASE_URL=file:./db.sqlite >> .env
-
-        echo # Next Auth >> .env
-        echo NEXTAUTH_SECRET= >> .env
-        echo NEXTAUTH_URL=http://localhost:3000 >> .env
- 
-        echo # Next Auth Discord Provider >> .env
-        echo DISCORD_CLIENT_ID= >> .env
-        echo DISCORD_CLIENT_SECRET= >> .env
-        
-        cat .env
-      
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: |
+        touch .env
+        echo # Prisma >> .env
+        echo DATABASE_URL=file:./db.sqlite >> .env
+        echo # Next Auth >> .env
+        echo NEXTAUTH_SECRET= >> .env
+        echo NEXTAUTH_URL=http://localhost:3000 >> .env
+
+        echo # Next Auth Discord Provider >> .env
+        echo DISCORD_CLIENT_ID= >> .env
+        echo DISCORD_CLIENT_SECRET= >> .env
+
+        cat .env
     - run: npm ci
     - run: npm run build --if-present
     - run: npm export
