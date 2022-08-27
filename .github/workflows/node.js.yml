@@ -10,16 +10,24 @@ on:
     branches: [ "main" ]
 
 jobs:
+        
   build:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo DATABASE_URL=file:./db.sqlite >> .env
+        echo NEXTAUTH_URL=http://localhost:3000 >> .env
+        cat .env
+      
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
